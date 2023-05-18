@@ -16,12 +16,12 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import connection.util.ConnectionManager;
+import connection.util.MyDataSource;
 import modelo.Alumno;
 import modelo.dao.AbstractGenericDao;
 import modelo.events.BDModificadaEvent;
 import modelo.events.BDModificadaListener;
-import modelo.util.ConnectionManager;
-import modelo.util.MyDataSource;
 
 /**
  *

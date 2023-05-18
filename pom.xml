@@ -16,5 +16,11 @@
 		    <artifactId>mysql-connector-java</artifactId>
 		    <version>8.0.33</version>
 		</dependency>
+		<!-- .m2\repository\	connection\util\			ConnectionUtil			\0.0.1-SNAPSHOT -->
+		<dependency>
+			<groupId>connection.util</groupId>
+			<artifactId>ConnectionUtil</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
 	</dependencies>
 </project>

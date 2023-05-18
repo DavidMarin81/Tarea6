@@ -13,16 +13,16 @@ public class Main {
 
 	public static void main(String[] args) {
 	//Creamos entidad alumno
-//		Alumno alumno = new Alumno();
-//		alumno.setApellidos("Nuevos ap");
-//		alumno.setDNI("12341234l");
-//
-//		LocalDate localDate = LocalDate.of(2014, 9, 11);
-//		Date date = Date.valueOf(localDate);
-//		alumno.setFechaNac(date);
-//		alumno.setDireccion("Vigo");
-//
-//		alumno.setNombre("Nuevo nombre");
+		Alumno alumno = new Alumno();
+		alumno.setApellidos("Marin Gomez");
+		alumno.setDNI("53170229W");
+
+		LocalDate localDate = LocalDate.of(1981, 7, 7);
+		Date date = Date.valueOf(localDate);
+		alumno.setFechaNac(date);
+		alumno.setDireccion("Vigo");
+
+		alumno.setNombre("David");
 		
 		//Creamos DAO
 		IAlumnoDao alumnoMySQLDao = new AlumnoMySQLDao();
@@ -37,7 +37,7 @@ public class Main {
 		((AlumnoMySQLDao)alumnoMySQLDao).addBDModificadaListener(rec);
 		
 		//Creamos un nuevo registro en BD. Esto disparará el evento personalizado y se avisará al bean oyente
-		 //alumnoMySQLDao.create(alumno);
+		alumnoMySQLDao.create(alumno);
 		
 		//Comprobamos si se ha insertado.
 		System.out.println("Después de insertar: --------------------");
