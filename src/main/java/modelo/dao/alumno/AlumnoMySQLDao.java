@@ -20,6 +20,8 @@ import modelo.Alumno;
 import modelo.dao.AbstractGenericDao;
 import modelo.events.BDModificadaEvent;
 import modelo.events.BDModificadaListener;
+import modelo.util.ConnectionManager;
+import modelo.util.MyDataSource;
 
 /**
  *
@@ -29,6 +31,9 @@ public class AlumnoMySQLDao extends
 AbstractGenericDao<Alumno> implements IAlumnoDao, Serializable {
 
 	private static final long serialVersionUID = 1L;
+	
+	//Se crea un objeto dataSource
+	private MyDataSource dataSource;
 
 	// Suponemos que solo habrá un receptor.
 	// Para varios receptores habría que tener una lista de listeners
@@ -44,7 +49,7 @@ AbstractGenericDao<Alumno> implements IAlumnoDao, Serializable {
 	}
 
 	public AlumnoMySQLDao() {
-
+		this.dataSource = ConnectionManager.getDataSource();
 	}
 
 	/*******************************************************
@@ -56,13 +61,11 @@ AbstractGenericDao<Alumno> implements IAlumnoDao, Serializable {
 	public boolean create(Alumno entity) {
 		{
 			Connection con = null;
-
+			
 			boolean exito = false;
 			try {
-				Class.forName("com.mysql.cj.jdbc.Driver");
-
-				con = DriverManager.getConnection("jdbc:mysql://localhost/alumnos", "root", "");
-
+				//Punto D -> Preparamos la conexion 
+				con = DriverManager.getConnection(this.dataSource.getUrl(), this.dataSource.getUser(), this.dataSource.getPwd());
 				con.setAutoCommit(false);
 				PreparedStatement stmt = con.prepareStatement(
 						"insert into alumnos(DNI, Nombre, Apellidos, Direccion, FechaNac) values (?,?,?,?,?)");
@@ -80,11 +83,7 @@ AbstractGenericDao<Alumno> implements IAlumnoDao, Serializable {
 				this.receptor.capturarBDModificada(new BDModificadaEvent(this));
 				exito = (rowCount == 1);
 
-			} catch (ClassNotFoundException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
 			} catch (SQLException e) {
-
 				if (con != null) {
 					try {
 						System.err.print("Transaction is being rolled back");
@@ -125,8 +124,8 @@ AbstractGenericDao<Alumno> implements IAlumnoDao, Serializable {
 		List<Alumno> alumnos = new ArrayList<>();
 		Connection con = null;
 		try {
-			Class.forName("com.mysql.cj.jdbc.Driver");
-			con = DriverManager.getConnection("jdbc:mysql://localhost/alumnos", "root", "");
+			//Punto D -> Preparamos la conexion 
+			con = DriverManager.getConnection(this.dataSource.getUrl(), this.dataSource.getUser(), this.dataSource.getPwd());
 			Statement s = con.createStatement();
 			ResultSet rs = s.executeQuery("select * from alumnos");
 			while (rs.next()) {
