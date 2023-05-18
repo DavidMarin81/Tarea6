@@ -25,7 +25,8 @@ import modelo.events.BDModificadaListener;
  *
  * @author mfernandez
  */
-public class AlumnoMySQLDao extends AbstractGenericDao<Alumno> implements IAlumnoDao, Serializable {
+public class AlumnoMySQLDao extends 
+AbstractGenericDao<Alumno> implements IAlumnoDao, Serializable {
 
 	private static final long serialVersionUID = 1L;
 
@@ -134,7 +135,7 @@ public class AlumnoMySQLDao extends AbstractGenericDao<Alumno> implements IAlumn
 
 				alumnos.add(a);
 
-				System.out.println(a);
+				//System.out.println(a);
 			}
 
 		} catch (Exception ex) {
